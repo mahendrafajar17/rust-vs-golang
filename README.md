@@ -4,7 +4,7 @@
 Performance comparison between Rust and Golang with monitoring using Prometheus + Grafana
 
 ## Reference Architecture
-Based on: `/Users/mahendrafajar/Repository/JatisMobile/rte-cimb-niaga/costerconverteroutbound`
+Based on: `/Users/mahendrafajar/Repository/JatisMobile/waba-integrate/webhook-receiver/webhook-receiver`
 
 ## Project Tasks
 
