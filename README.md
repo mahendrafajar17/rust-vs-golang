@@ -44,7 +44,30 @@ GET /
 }
 ```
 
-### 2. MongoDB CRUD Operations
+### 2. RabbitMQ Queue Listener & Publisher
+
+**1. Listen Message from Queue:**
+```json
+{
+  "user_id": "12345",
+  "product_name": "Laptop",
+  "quantity": 2,
+  "price": 999.99
+}
+```
+
+**2. Add UUID and Forward to Next Queue:**
+```json
+{
+  "id": "550e8400-e29b-41d4-a716-446655440000",
+  "user_id": "12345",
+  "product_name": "Laptop",
+  "quantity": 2,
+  "price": 999.99
+}
+```
+
+### 3. MongoDB CRUD Operations
 
 #### POST /users (Create)
 **Request:**
@@ -130,7 +153,7 @@ DELETE /users/60f5b2c8d1e4a123456789ab
 }
 ```
 
-### 3. Request Proxy Service
+### 4. Request Proxy Service
 
 #### POST /proxy
 **Request:**
@@ -173,7 +196,7 @@ DELETE /users/60f5b2c8d1e4a123456789ab
 }
 ```
 
-### 4. Database + Message Queue
+### 5. Database + Message Queue
 
 #### POST /orders
 **Request:**
@@ -214,46 +237,5 @@ DELETE /users/60f5b2c8d1e4a123456789ab
   "quantity": 2,
   "total": 199.98,
   "timestamp": "2025-09-02T10:30:00Z"
-}
-```
-
-### 5. Queue Consumer Service
-
-**RabbitMQ Message Received:**
-```json
-{
-  "event_type": "order_created",
-  "order_id": "order-abc-123",
-  "user_id": "12345",
-  "product_id": "prod-789",
-  "quantity": 2,
-  "total": 199.98,
-  "timestamp": "2025-09-02T10:30:00Z"
-}
-```
-
-**HTTP Call to External Service:**
-```json
-{
-  "order_id": "order-abc-123",
-  "user_id": "12345",
-  "product_id": "prod-789",
-  "quantity": 2,
-  "total": 199.98,
-  "notification_type": "order_confirmation",
-  "processed_at": "2025-09-02T10:30:05Z"
-}
-```
-
-**Processing Response:**
-```json
-{
-  "status": "processed",
-  "order_id": "order-abc-123",
-  "external_service_response": {
-    "notification_sent": true,
-    "delivery_id": "delivery-xyz-789"
-  },
-  "processing_time_ms": 250
 }
 ```
