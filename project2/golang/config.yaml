@@ -1,0 +1,22 @@
+app:
+  name: "rabbitmq-queue-processor"
+  port: 8082
+
+amqp:
+  scheme: "amqp"
+  host: "localhost"
+  port: 5672
+  username: "guest"
+  password: "guest"
+  concurrent: 10
+  prefetch_count: 50
+  prefetch_size: 0
+  global: false
+
+queues:
+  input_queue: "golang_input_queue"
+  output_queue: "golang_output_queue"
+
+logging:
+  level: "info"
+  format: "json"

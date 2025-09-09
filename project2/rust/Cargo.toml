@@ -1,0 +1,21 @@
+[package]
+name = "project2-rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+serde_yaml = "0.9"
+lapin = "2.5"
+uuid = { version = "1.0", features = ["v4", "serde"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["json", "env-filter"] }
+anyhow = "1.0"
+config = "0.14"
+futures-util = "0.3"
+async-trait = "0.1"
+prometheus = "0.13"
+axum = "0.7"
+sysinfo = "0.30"

@@ -4,7 +4,14 @@
 Performance comparison between Rust and Golang with monitoring using Prometheus + Grafana
 
 ## Reference Architecture
-Based on: `/Users/mahendrafajar/Repository/JatisMobile/waba-integrate/webhook-receiver/webhook-receiver`
+
+**Publish Queue Reference:**  
+`/Users/mahendrafajar/Repository/JatisMobile/waba-integrate/webhook-receiver/webhook-receiver`
+
+**Listen Queue Reference:**  
+`/Users/mahendrafajar/Repository/JatisMobile/waba-integrate/moengage-coster-converter/`
+
+**Note:** Golang project should follow the structure patterns from these reference codebases.
 
 ## Project Tasks
 

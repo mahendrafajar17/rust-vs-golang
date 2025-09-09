@@ -1,0 +1,16 @@
+app:
+  name: "rabbitmq-queue-processor-rust"
+  port: 8083
+
+amqp:
+  url: "amqp://guest:guest@localhost:5672/%2f"
+  concurrent: 10
+  prefetch_count: 50
+
+queues:
+  input_queue: "rust_input_queue"
+  output_queue: "rust_output_queue"
+
+logging:
+  level: "info"
+  format: "json"

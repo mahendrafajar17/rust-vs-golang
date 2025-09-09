@@ -22,3 +22,19 @@ scrape_configs:
       - targets: ['host.docker.internal:8000']
     metrics_path: '/metrics'
     scrape_interval: 5s
+
+  # Project 2 - Golang Queue Processor
+  - job_name: 'project2-golang'
+    static_configs:
+      - targets: ['host.docker.internal:8082']
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    scrape_timeout: 5s
+
+  # Project 2 - Rust Queue Processor  
+  - job_name: 'project2-rust'
+    static_configs:
+      - targets: ['host.docker.internal:8083']
+    metrics_path: '/metrics'
+    scrape_interval: 5s
+    scrape_timeout: 5s
