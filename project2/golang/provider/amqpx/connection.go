@@ -127,20 +127,8 @@ func (c *Connection) reconnect() {
 
 		c.logger.Info("Successfully reconnected to AMQP")
 		
-		// Set up notification for new connection
-		notifyClose := c.conn.NotifyClose(make(chan *amqp.Error, 1))
-		go func() {
-			for {
-				select {
-				case err := <-notifyClose:
-					if err != nil {
-						c.logger.WithError(err).Error("AMQP connection lost, attempting to reconnect")
-						c.reconnect()
-						return
-					}
-				}
-			}
-		}()
+		// Start new reconnect handler (fixed goroutine leak)
+		go c.handleReconnect()
 		
 		break
 	}

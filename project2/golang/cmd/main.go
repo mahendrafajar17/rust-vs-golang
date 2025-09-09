@@ -75,6 +75,7 @@ func main() {
 		publisher,
 		appMetrics,
 		cfg.AMQP.Concurrent,
+		cfg.AMQP.PrefetchCount,
 	)
 
 	// Setup queue processor

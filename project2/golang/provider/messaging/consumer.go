@@ -15,13 +15,14 @@ import (
 )
 
 type AMQPConsumer struct {
-	channel     *amqpx.Channel
-	publisher   *AMQPPublisher
-	metrics     *metrics.Metrics
-	logger      *logrus.Logger
-	wg          *sync.WaitGroup
-	state       int32
-	concurrency int
+	channel       *amqpx.Channel
+	publisher     *AMQPPublisher
+	metrics       *metrics.Metrics
+	logger        *logrus.Logger
+	wg            *sync.WaitGroup
+	state         int32
+	concurrency   int
+	prefetchCount int
 }
 
 type MessageHandler interface {
@@ -52,14 +53,15 @@ type OutputMessage struct {
 	Price       float64 `json:"price"`
 }
 
-func NewAMQPConsumer(channel *amqpx.Channel, publisher *AMQPPublisher, metrics *metrics.Metrics, concurrency int) *AMQPConsumer {
+func NewAMQPConsumer(channel *amqpx.Channel, publisher *AMQPPublisher, metrics *metrics.Metrics, concurrency int, prefetchCount int) *AMQPConsumer {
 	return &AMQPConsumer{
-		channel:     channel,
-		publisher:   publisher,
-		metrics:     metrics,
-		logger:      logrus.New(),
-		wg:          &sync.WaitGroup{},
-		concurrency: concurrency,
+		channel:       channel,
+		publisher:     publisher,
+		metrics:       metrics,
+		logger:        logrus.New(),
+		wg:            &sync.WaitGroup{},
+		concurrency:   concurrency,
+		prefetchCount: prefetchCount,
 	}
 }
 
@@ -80,8 +82,8 @@ func (c *AMQPConsumer) StartConsuming(ctx context.Context, queue string, handler
 	// Update active consumers metric
 	c.metrics.SetActiveConsumers(float64(c.concurrency))
 
-	// Set QoS
-	err := c.channel.Qos(50, 0, false)
+	// Set QoS from config
+	err := c.channel.Qos(c.prefetchCount, 0, false)
 	if err != nil {
 		return err
 	}
@@ -124,20 +126,38 @@ func (c *AMQPConsumer) worker(ctx context.Context, queue string, handler Message
 		}
 	}()
 
-	messages, err := c.channel.Consume(
-		queue,
-		"",    // consumer tag
-		false, // auto-ack
-		false, // exclusive
-		false, // no-local
-		false, // no-wait
-		nil,   // args
-	)
-	if err != nil {
-		c.logger.WithError(err).WithField("worker_id", workerID).Error("Failed to register consumer")
-		return
-	}
+	for {
+		select {
+		case <-ctx.Done():
+			c.logger.WithField("worker_id", workerID).Info("Consumer worker stopping")
+			return
+		default:
+			// Try to consume messages with retry logic
+			messages, err := c.channel.Consume(
+				queue,
+				"",    // consumer tag
+				false, // auto-ack
+				false, // exclusive
+				false, // no-local
+				false, // no-wait
+				nil,   // args
+			)
+			if err != nil {
+				c.logger.WithError(err).WithField("worker_id", workerID).Error("Failed to register consumer, retrying")
+				time.Sleep(100 * time.Millisecond)
+				continue
+			}
 
+			c.consumeMessages(ctx, messages, handler, workerID)
+			
+			// If we reach here, the messages channel was closed
+			c.logger.WithField("worker_id", workerID).Warn("Consumer channel closed, attempting to reconnect")
+			time.Sleep(50 * time.Millisecond)
+		}
+	}
+}
+
+func (c *AMQPConsumer) consumeMessages(ctx context.Context, messages <-chan amqp.Delivery, handler MessageHandler, workerID int) {
 	for {
 		select {
 		case <-ctx.Done():
