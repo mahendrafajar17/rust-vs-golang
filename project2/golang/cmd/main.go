@@ -89,6 +89,21 @@ func main() {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
+	// Start metrics collection
+	go func() {
+		ticker := time.NewTicker(5 * time.Second)
+		defer ticker.Stop()
+		
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case <-ticker.C:
+				appMetrics.UpdateSystemMetrics()
+			}
+		}
+	}()
+
 	// Start simple metrics server
 	go func() {
 		http.Handle("/metrics", promhttp.Handler())
