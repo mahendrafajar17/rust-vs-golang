@@ -82,7 +82,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![Memory Usage](img/get/image-9.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **Memory Peak** | **2.62 MB** 📉 | 7.38 MB |
+| **Memory Peak** | **2.62 MB** 📉 (drops during request processing) | 7.38 MB |
 
 > **🔍 Notable**: Go experiences dramatic memory usage reduction during high load GET requests
 
@@ -108,7 +108,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![Memory Usage](img/post/image-3.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **Memory Peak** | 8.66 MB | 6.88 MB |
+| **Memory Peak** | 8.66 MB (drops during request processing) | 6.88 MB |
 
 ### Test Configuration 2: Medium Load
 **Parameters**: 200 threads, 10s ramp-up, 10 loops  
@@ -128,7 +128,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![Memory Usage](img/post/image-6.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **Memory Peak** | **3.53 MB** 📉 | 7.36 MB |
+| **Memory Peak** | **3.53 MB** 📉 (drops during request processing) | 7.36 MB |
 
 > **🔥 Critical**: Rust experiences highest CPU spike during POST medium load (8.83% vs baseline 0.861%)
 
@@ -150,7 +150,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![Memory Usage](img/post/image-9.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **Memory Peak** | 3.03 MB | 7.56 MB |
+| **Memory Peak** | 3.03 MB (drops during request processing) | 7.56 MB |
 
 ---
 
