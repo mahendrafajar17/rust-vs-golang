@@ -5,7 +5,7 @@
 Based on comprehensive load testing results between Golang and Rust message queue processing applications, both show different performance characteristics with Rust demonstrating superior throughput but higher memory usage.
 
 ### Key Findings:
-- **Throughput**: Rust achieves 5.3% higher throughput in light load, 20.2% higher in medium load
+- **Throughput**: Rust achieves 5.4% higher throughput in light load, 20.3% higher in medium load
 - **🚀 Latency Go**: Significantly faster response times, especially at 50th percentile (0.704ms vs 3.94ms)
 - **💾 Memory Rust**: Consistently higher memory usage (~15.9MB vs 1.51-4.87MB for Go)
 - **⚡ CPU Go**: Much higher CPU usage during load testing (24-27% vs 0.25% for Rust)
@@ -38,7 +38,7 @@ Based on comprehensive load testing results between Golang and Rust message queu
 | Metric | Go | Rust |
 |--------|----|----- |
 | **Processing Latency (Response Time) 50th** | 0.704 ms | 3.94 ms |
-| **Processing Latency (Response Time) 95th** | 3.01 ms | 3.94 ms |
+| **Processing Latency (Response Time) 95th** | 3.01 ms | 9.07 ms |
 
 ![](img/image-4.png)
 | Metric | Go | Rust |
@@ -106,8 +106,8 @@ Based on comprehensive load testing results between Golang and Rust message queu
 ### 📊 Throughput Comparison
 | Load Level | Go (req/s) | Rust (req/s) | Rust Advantage |
 |------------|------------|--------------|----------------|
-| **Light** | 7.47 | 7.87 | +5.3% |
-| **Medium** | 66.5 | 80.0 | +20.2% |
+| **Light** | 7.47 | 7.87 | +5.4% |
+| **Medium** | 66.5 | 80.0 | +20.3% |
 
 ### 🎯 Performance Summary
 | Aspect | Golang | Rust | Winner |

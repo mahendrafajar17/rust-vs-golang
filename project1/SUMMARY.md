@@ -32,7 +32,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![TPS Comparison](img/get/image-1.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **TPS Peak** | 3.64 | 3.64 |
+| **TPS Peak** | 3.64 tps | 3.64 tps |
 
 ![CPU Usage](img/get/image-2.png)
 | Metric | Go | Rust |
@@ -52,7 +52,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![TPS Comparison](img/get/image-4.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **TPS Peak** | 36.4 | 36.4 |
+| **TPS Peak** | 36.4 tps | 36.4 tps |
 
 ![CPU Usage](img/get/image-5.png)
 | Metric | Go | Rust |
@@ -72,7 +72,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![TPS Comparison](img/get/image-7.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **TPS Peak** | 364 | 364 |
+| **TPS Peak** | 364 tps | 364 tps |
 
 ![CPU Usage](img/get/image-8.png)
 | Metric | Go | Rust |
@@ -98,7 +98,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![TPS Comparison](img/post/image-1.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **TPS Peak** | 3.64 | 3.64 |
+| **TPS Peak** | 3.64 tps | 3.64 tps |
 
 ![CPU Usage](img/post/image-2.png)
 | Metric | Go | Rust |
@@ -118,7 +118,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![TPS Comparison](img/post/image-4.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **TPS Peak** | 36.4 | 36.4 |
+| **TPS Peak** | 36.4 tps | 36.4 tps |
 
 ![CPU Usage](img/post/image-5.png)
 | Metric | Go | Rust |
@@ -140,7 +140,7 @@ Based on comprehensive load testing results between Golang and Rust applications
 ![TPS Comparison](img/post/image-7.png)
 | Metric | Go | Rust |
 |--------|----|----- |
-| **TPS Peak** | 364 | 364 |
+| **TPS Peak** | 364 tps | 364 tps |
 
 ![CPU Usage](img/post/image-8.png)
 | Metric | Go | Rust |
